@@ -1,4 +1,4 @@
-# 🛡️ Claw Sheath — AI Agent Protection
+# 🛡️ Claw Sheath - AI Agent Protection
 
 <p align="center">
   <img src="test_dir/claw.jpg" alt="Claw Sheath Logo" width="500"/>
@@ -17,7 +17,7 @@
 
 **Put a sheath on your AI agents to prevent them from accidentally destroying your local or remote systems.**
 
-### Supported AI Clients
+### Works with
 - [x] **OpenClaw**
 - [x] **Claude Code**
 - [x] **Cursor**
@@ -25,9 +25,9 @@
 
 Claw Sheath adds an extra protection layer to let you run fully autonomous coding and personal agents. When an agent hallucinates and tries to execute dangerous operations, it will be asked to think deeply and justify its actions.
 
-You can enable strict mode, which allows an LLM judge to evaluate the justification and decide whether to allow or deny the action.
-
 It's very simple and naive - a dynamic proxy for your shell. It provides initial feedback that can help the agent correct itself and try again. An agent can absolutely bypass it, so it's not a sandbox or a military-grade isolation environment. It's just a simple, lightweight protection layer that helps prevent accidental damage.
+
+You can also enable strict mode, which allows an LLM judge to evaluate the justification and decide whether to allow or deny the action.
 
 ## Installation
 
