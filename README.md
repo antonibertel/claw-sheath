@@ -1,4 +1,19 @@
-# Claw Sheath
+# 🛡️ Claw Sheath — AI Agent Protection
+
+<p align="center">
+  <img src="test_dir/claw.jpg" alt="Claw Sheath Logo" width="500"/>
+</p>
+
+<p align="center">
+  <b>PROTECT YOUR SYSTEM. EMPOWER YOUR AGENT.</b>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/BUILD-PASSING-brightgreen" alt="Build Status"/>
+  <img src="https://img.shields.io/badge/SECURITY-ACTIVE-blue" alt="Security"/>
+  <img src="https://img.shields.io/badge/OS-MAC_%7C_LINUX-orange" alt="OS Support"/>
+  <img src="https://img.shields.io/badge/LICENSE-MIT-blue" alt="License"/>
+</p>
 
 **Put a sheath on your AI agents to prevent them from accidentally destroying your local or remote systems.**
 
