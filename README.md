@@ -16,13 +16,23 @@ It's very simple and naive—a dynamic proxy for your shell. It provides initial
 curl -fsSL https://raw.githubusercontent.com/antonibertel/claw-sheath/main/install.sh | bash
 ```
 
-To use Claw Sheath, you must use the `cs` wrapper, which injects the protective shell environment.
+To use Claw Sheath, you must configure your AI coding agent/tool to use the `src/cs` wrapper (or inject `src/sheath-env.sh`) as its primary shell environment. 
 
 ### Usage
 
-OpenClaw & Claude Code
+**OpenClaw & Claude Code**
 
-Run OpenClaw or Claude Code by simply prefixing with `cs`:
+Run OpenClaw or Claude Code by explicitly overriding the `SHELL` variable before launch:
+
+```bash
+SHELL=~/.claw-sheath/src/cs openclaw agent --agent main --message "Run rm important.txt"
+# OR
+SHELL=~/.claw-sheath/src/cs claude
+```
+
+**Convenience Wrapper (`cs`)**
+
+If you followed the installation instructions to add `~/.claw-sheath/src` to your PATH, you can just use the provided `cs` convenience wrapper instead of manually setting the environment variables:
 
 ```bash
 cs openclaw agent --agent main --message "Run rm important.txt"
@@ -30,10 +40,12 @@ cs openclaw agent --agent main --message "Run rm important.txt"
 cs claude
 ```
 
-Antigravity 
+**Antigravity**
+
+To launch Antigravity with the protected environment, inject the shell environment variable when opening the application from your standard terminal:
 
 ```bash
-cs open -a "Antigravity"
+open -a "Antigravity" --env SHELL=/bin/bash --env BASH_ENV=~/.claw-sheath/src/sheath-env.sh
 ```
 
 Cursor

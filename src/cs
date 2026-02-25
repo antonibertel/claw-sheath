@@ -2,7 +2,7 @@
 
 # Determine our location
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-ENV_FILE="${SCRIPT_DIR}/src/sheath-env.sh"
+ENV_FILE="${SCRIPT_DIR}/sheath-env.sh"
 
 export SHELL="$SCRIPT_DIR/cs"
 export BASH_ENV="$ENV_FILE"
