@@ -1,4 +1,4 @@
-# 🛡️ Claw Sheath - AI Agent Protection
+# Claw Sheath - first layer of protection for AI Agents
 
 <p align="center">
   <img src="test_dir/claw.jpg" alt="Claw Sheath Logo" width="500"/>
@@ -40,8 +40,6 @@ To use Claw Sheath, you must configure your AI coding agent/tool to use the `src
 ### Usage
 
 **OpenClaw & Claude Code**
-
-If you followed the installation instructions to add `~/.claw-sheath/src` to your PATH, you can just use the provided `cs` convenience wrapper:
 
 ```bash
 cs openclaw agent --agent main --message "Run rm important.txt"

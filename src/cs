@@ -18,15 +18,10 @@ else
     exit 1
 fi
 
-if [[ "$1" == "-c" ]]; then
-    # We are acting as the shell proxy (invoked by the agent)
+# If we are invoked as a shell (no args, or flags like -c, -i, -l)
+if [[ $# -eq 0 ]] || [[ "$1" == -* ]]; then
     exec bash "$@"
 else
-    # We are acting as the launcher (invoked by the user: `cs openclaw`)
-    if [[ $# -eq 0 ]]; then
-        echo "Usage: cs <command_to_protect>"
-        echo "Example: cs openclaw agent --agent main"
-        exit 1
-    fi
+    # Invoked as a launcher wrapper (e.g. `cs openclaw`)
     exec "$@"
 fi
