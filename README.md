@@ -17,7 +17,11 @@
 
 **Put a sheath on your AI agents to prevent them from accidentally destroying your local or remote systems.**
 
-Works with **OpenClaw**, **Claude Code**, **Cursor**, and **Antigravity**.
+### Supported AI Clients
+- [x] **OpenClaw**
+- [x] **Claude Code**
+- [x] **Cursor**
+- [x] **Antigravity**
 
 Claw Sheath adds an extra protection layer to let you run fully autonomous coding and personal agents. When an agent hallucinates and tries to execute dangerous operations, it will be asked to think deeply and justify its actions.
 
