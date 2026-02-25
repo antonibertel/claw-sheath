@@ -44,22 +44,31 @@ rm -rf "$INSTALL_DIR"
 # Create installation directory
 mkdir -p "$INSTALL_DIR"
 
-# Currently using local repo for installation
-# In the future, this will be replaced with a git clone or curl download
-echo "Copying local repository files to $INSTALL_DIR..."
+GITHUB_REPO="antonibertel/claw-sheath"
+
+echo "Retrieving Claw Sheath repository files..."
 if [ -d "src" ] && [ -f "config.yml" ]; then
+    echo "Using local repository files..."
     cp -R src "$INSTALL_DIR/"
     cp config.yml "$INSTALL_DIR/"
     if [ -f "README.md" ]; then
         cp README.md "$INSTALL_DIR/"
     fi
 else
-    echo "Error: Cannot find source files (src/ or config.yml) in current directory."
-    echo "Please run this script from the root of the claw-sheath repository."
-    exit 1
+    echo "Cloning from GitHub ($GITHUB_REPO)..."
+    # Clone to a temporary directory
+    TMP_DIR=$(mktemp -d)
+    git clone --depth 1 "https://github.com/${GITHUB_REPO}.git" "$TMP_DIR"
+    
+    cp -R "$TMP_DIR/src" "$INSTALL_DIR/"
+    cp "$TMP_DIR/config.yml" "$INSTALL_DIR/"
+    if [ -f "$TMP_DIR/README.md" ]; then
+        cp "$TMP_DIR/README.md" "$INSTALL_DIR/"
+    fi
+    rm -rf "$TMP_DIR"
 fi
 
-GITHUB_REPO="antonibertel/claw-sheath"
+
 BIN_TARGET="sheath-verifier-${machine}-${arch}"
 
 echo "Downloading sheath-verifier binary for ${machine}/${arch}..."
