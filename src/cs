@@ -7,21 +7,25 @@ ENV_FILE="${SCRIPT_DIR}/sheath-env.sh"
 export SHELL="$SCRIPT_DIR/cs"
 export BASH_ENV="$ENV_FILE"
 
-# Make sure we don't accidentally source it interactively unless needed,
-# but our primary target is bash -c, which automatically sources BASH_ENV.
-# If bash is running interactively, BASH_ENV isn't naturally sourced, 
-# so we can explicitly source it here just in case.
-if [[ -f "$ENV_FILE" ]]; then
-    source "$ENV_FILE"
-else
-    echo -e "\x1b[31mclaw-sheath error:\x1b[0m Environment file not found at $ENV_FILE" >&2
-    exit 1
-fi
-
-# If we are invoked as a shell (no args, or flags like -c, -i, -l)
+# If we are invoked as an interactive/login shell or with bash flags (e.g. by an agent's PTY)
 if [[ $# -eq 0 ]] || [[ "$1" == -* ]]; then
+    # Bash only auto-sources BASH_ENV for non-interactive shells (like bash -c).
+    # If it's an interactive shell, we explicitly inject our environment.
+    if [[ -f "$ENV_FILE" ]]; then
+        source "$ENV_FILE"
+    else
+        echo -e "\x1b[31mclaw-sheath error:\x1b[0m Environment file not found at $ENV_FILE" >&2
+        exit 1
+    fi
     exec bash "$@"
 else
-    # Invoked as a launcher wrapper (e.g. `cs openclaw`)
+    # Invoked as a launcher wrapper (e.g. `cs openclaw`). 
+    # Do NOT source ENV_FILE here, otherwise we pollute the environment with BASH_FUNC_* 
+    # which crashes Node/Go programs that strictly parse env vars!
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: cs <command_to_protect>"
+        echo "Example: cs openclaw agent --agent main"
+        exit 1
+    fi
     exec "$@"
 fi

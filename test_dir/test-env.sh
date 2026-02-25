@@ -9,9 +9,8 @@ rm -rf test_playground
 mkdir -p test_playground
 cd test_playground
 
-# Create dummy files
-touch a.txt b.txt c.txt "space file.txt"
-
+# Set up test files
+touch a.txt b.txt c.txt d.txt "space file.txt"
 # Mock kubectl for testing
 echo '#!/bin/bash' > kubectl
 echo 'echo "Mock kubectl executed with args: $@"' >> kubectl
@@ -67,6 +66,24 @@ if [[ ! -f output_kubectl.txt ]]; then echo "FAIL 11: kubectl get was blocked!";
 echo "[Test 12] Conditional kubectl delete WITH !override! justify (should succeed)"
 bash ../../src/cs -c "kubectl delete pod my-pod --sheathJustify '!override!' > output_kubectl_del.txt"
 if [[ ! -f output_kubectl_del.txt ]]; then echo "FAIL 12: kubectl delete with override was blocked!"; exit 1; fi
+
+echo "[Test 13] Interactive login shell flag routing (-il) (should route to bash)"
+# Piping echo into an interactive login proxy
+echo "echo hello from proxy" | bash ../../src/cs -il > output_interactive.txt
+if ! grep -q "hello from proxy" output_interactive.txt; then echo "FAIL 13: -il flag did not route to interactive bash!"; exit 1; fi
+
+echo "[Test 14] Empty argument shell routing (should route to bash)"
+# Piping echo into the proxy with no arguments
+echo "echo hello from empty args" | bash ../../src/cs > output_empty.txt
+if ! grep -q "hello from empty args" output_empty.txt; then echo "FAIL 14: empty argument invocation did not route to bash!"; exit 1; fi
+
+echo "[Test 15] Test subshell environment injection via BASH_ENV (should fail on rm)"
+# Test that tracking survives bash spawning *another* bash
+if bash ../../src/cs -c "bash -c 'rm d.txt'" 2>/dev/null; then
+    echo "FAIL 15: nested bash substitution bypassed sheath!"
+    exit 1
+fi
+if [[ ! -f d.txt ]]; then echo "FAIL 15: file deleted by nested bash!"; exit 1; fi
 
 echo "------------------------------------"
 echo "✅ All tests PASSED!"
