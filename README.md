@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <b>PROTECT YOUR SYSTEM. EMPOWER YOUR AGENT.</b>
+  <b>PROTECT YOUR AGENT FROM ACCIDENTS</b>
 </p>
 
 <p align="center">
