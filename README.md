@@ -1,36 +1,23 @@
 # Claw Sheath
 
-**Put a sheath on your AI agents to prevent them from accidentally destroying your or remotesystem.**
+**Put a sheath on your AI agents to prevent them from accidentally destroying your or remote system.**
 
 Works with **OpenClaw**, **Claude Code**, **Cursor**, and **Antigravity**.
 
-## The Problem
-
-You're running autonomous AI coding agents. Clicking "Approve" for every single terminal command they want to run is incredibly tedious and defeats the purpose of autonomy. But putting them in fully unattended mode and handing over your terminal is terrifying.
-
-What happens if the agent hallucinates during a late-night debugging session and executes `rm -rf /`? What if it decides to rewrite your entire Git history or wipe your database?
-
 You want the productivity of autonomous agents without the constant interruptions, but you need peace of mind that they won't purge your files or cause catastrophic damage when they inevitably go off the rails.
 
-## The Solution
+Claw Sneath adds an extra protection layer to let you run fully autonomous coding and personal agents. When agents hallucinate and tries to do dangerous operations, it will be asked to think deeply and justify an action.
 
-**Claw Sheath** is a simple, dynamic security proxy for your shell. It intercepts highly disruptive and destructive commands and pauses execution until a valid justification is provided by the agent.
+You can enable strict mode that will also let llm-judge to evaluate the justification and decide whether to allow or deny the action.
 
-Instead of hard-blocking the AI, Claw Sheath forces the agent to append a `--sheathJustify "reason"` flag to restricted commands.
-
-You can also optionally enable extra validation where a second, lightweight, Go-based "Verifier AI" (powered by an LLM) evaluates the command and the justification:
-
-- **ALLOW**: If the justification makes logical sense for the task and isn't inherently destructive.
-- **DENY**: If the command is highly destructive without good reason, or the justification is vague/nonsensical.
-
-If the AI tries to bypass the sheath or fails to provide a justification, the command is blocked, and the agent is prompted with instructions on how to proceed safely.
+It's very simple and naitve - a simple, dynamic security proxy for your shell. It does provide an initial feedback that can help the agent to correct itself and try again.
 
 ## Installation
 
 Install Claw Sheath locally using our automated script (supports macOS & Linux):
 
 ```bash
-curl -fsSL https://placeholder-link.com/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/antonibertel/claw-sheath/main/install.sh | bash
 ```
 
 This will:
