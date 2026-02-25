@@ -59,7 +59,7 @@ else
     exit 1
 fi
 
-GITHUB_REPO="ntb/claw-sheath" # Placeholder for github repo
+GITHUB_REPO="antonibertel/claw-sheath"
 BIN_TARGET="sheath-verifier-${machine}-${arch}"
 
 echo "Downloading sheath-verifier binary for ${machine}/${arch}..."

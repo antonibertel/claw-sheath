@@ -1,6 +1,6 @@
-# Claw Sheath 🐕
+# Claw Sheath
 
-**Put a sheath on your AI agents to prevent them from accidentally destroying your system.**
+**Put a sheath on your AI agents to prevent them from accidentally destroying your or remotesystem.**
 
 Works with **OpenClaw**, **Claude Code**, **Cursor**, and **Antigravity**.
 
