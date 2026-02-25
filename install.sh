@@ -47,14 +47,15 @@ mkdir -p "$INSTALL_DIR"
 # Currently using local repo for installation
 # In the future, this will be replaced with a git clone or curl download
 echo "Copying local repository files to $INSTALL_DIR..."
-if [ -d "src" ] && [ -f "config.yml" ]; then
+if [ -d "src" ] && [ -f "config.yml" ] && [ -f "cs" ]; then
     cp -R src "$INSTALL_DIR/"
     cp config.yml "$INSTALL_DIR/"
+    cp cs "$INSTALL_DIR/"
     if [ -f "README.md" ]; then
         cp README.md "$INSTALL_DIR/"
     fi
 else
-    echo "Error: Cannot find source files (src/ or config.yml) in current directory."
+    echo "Error: Cannot find source files (src/, config.yml, or cs) in current directory."
     echo "Please run this script from the root of the claw-sheath repository."
     exit 1
 fi
@@ -82,7 +83,7 @@ else
 fi
 
 # Set permissions
-chmod +x "$INSTALL_DIR/src/sheath-shell.sh"
+chmod +x "$INSTALL_DIR/cs"
 chmod +x "$INSTALL_DIR/src/sheath-env.sh"
 
 echo ""
@@ -93,7 +94,15 @@ echo ""
 echo "Your configuration file is located at:"
 echo "  $INSTALL_DIR/config.yml"
 echo ""
-echo "To protect your AI agents, override their SHELL with:"
-echo "  SHELL=$INSTALL_DIR/src/sheath-shell.sh"
+echo "To use the 'cs' wrapper command, please add the installation directory to your PATH."
+echo "Add the following line to your ~/.bashrc, ~/.zshrc, or ~/.profile:"
+echo "  export PATH=\"\$INSTALL_DIR:\$PATH\""
+echo ""
+echo "After adding it, restart your terminal or reload your shell profile:"
+echo "  source ~/.bashrc  # (or ~/.zshrc)"
+echo ""
+echo "Then, you can protect your AI agents simply by prefixing their commands:"
+echo "  cs openclaw agent --agent main --message \"Run rm important.txt\""
+echo "  cs claude"
 echo "--------------------------------------------------------"
 echo "Stay productive. Stay safe."
