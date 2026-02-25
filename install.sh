@@ -93,12 +93,44 @@ echo ""
 echo "Your configuration file is located at:"
 echo "  $INSTALL_DIR/config.yml"
 echo ""
+# Detect shell
+USER_SHELL=$(basename "$SHELL")
+PROFILE_FILE=""
+
+case "$USER_SHELL" in
+    zsh)
+        PROFILE_FILE="~/.zshrc"
+        ;;
+    bash)
+        # Check if .bashrc or .bash_profile exists, prefer .bashrc
+        if [ -f "$HOME/.bashrc" ]; then
+            PROFILE_FILE="~/.bashrc"
+        elif [ -f "$HOME/.bash_profile" ]; then
+            PROFILE_FILE="~/.bash_profile"
+        else
+            PROFILE_FILE="~/.bashrc"
+        fi
+        ;;
+    fish)
+        PROFILE_FILE="~/.config/fish/config.fish"
+        ;;
+    *)
+        PROFILE_FILE="~/.profile"
+        ;;
+esac
+
 echo "To use the 'cs' wrapper command, please add the 'src' directory to your PATH."
-echo "Add the following line to your ~/.bashrc, ~/.zshrc, or ~/.profile:"
-echo "  export PATH=\"\$INSTALL_DIR/src:\$PATH\""
+echo "Add the following line to your $PROFILE_FILE:"
+
+if [ "$USER_SHELL" = "fish" ]; then
+    echo "  set -gx PATH \"\$HOME/.claw-sheath/src\" \$PATH"
+else
+    echo "  export PATH=\"\$HOME/.claw-sheath/src:\$PATH\""
+fi
+
 echo ""
 echo "After adding it, restart your terminal or reload your shell profile:"
-echo "  source ~/.bashrc  # (or ~/.zshrc)"
+echo "  source $PROFILE_FILE"
 echo ""
 echo "Then, you can protect your AI agents simply by prefixing their commands:"
 echo "  cs openclaw agent --agent main --message \"Run rm important.txt\""

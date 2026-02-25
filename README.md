@@ -8,7 +8,7 @@ Claw Sheath adds an extra protection layer to let you run fully autonomous codin
 
 You can enable strict mode, which allows an LLM judge to evaluate the justification and decide whether to allow or deny the action.
 
-It's very simple and naive—a dynamic proxy for your shell. It provides initial feedback that can help the agent correct itself and try again. An agent can absolutely bypass it, so it's not a sandbox or a military-grade isolation environment. It's just a simple, lightweight protection layer that helps prevent accidental damage.
+It's very simple and naive - a dynamic proxy for your shell. It provides initial feedback that can help the agent correct itself and try again. An agent can absolutely bypass it, so it's not a sandbox or a military-grade isolation environment. It's just a simple, lightweight protection layer that helps prevent accidental damage.
 
 ## Installation
 
@@ -22,17 +22,7 @@ To use Claw Sheath, you must configure your AI coding agent/tool to use the `src
 
 **OpenClaw & Claude Code**
 
-Run OpenClaw or Claude Code by explicitly overriding the `SHELL` variable before launch:
-
-```bash
-SHELL=~/.claw-sheath/src/cs openclaw agent --agent main --message "Run rm important.txt"
-# OR
-SHELL=~/.claw-sheath/src/cs claude
-```
-
-**Convenience Wrapper (`cs`)**
-
-If you followed the installation instructions to add `~/.claw-sheath/src` to your PATH, you can just use the provided `cs` convenience wrapper instead of manually setting the environment variables:
+If you followed the installation instructions to add `~/.claw-sheath/src` to your PATH, you can just use the provided `cs` convenience wrapper:
 
 ```bash
 cs openclaw agent --agent main --message "Run rm important.txt"
@@ -42,10 +32,8 @@ cs claude
 
 **Antigravity**
 
-To launch Antigravity with the protected environment, inject the shell environment variable when opening the application from your standard terminal:
-
 ```bash
-open -a "Antigravity" --env SHELL=/bin/bash --env BASH_ENV=~/.claw-sheath/src/sheath-env.sh
+cs open -a "Antigravity"
 ```
 
 Cursor
