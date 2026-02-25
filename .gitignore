@@ -1,0 +1,5 @@
+.DS_Store
+/releases/
+/test_playground/
+*.log
+*.tmp

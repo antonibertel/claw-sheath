@@ -1,0 +1,50 @@
+# Claw Sheath Proxy Shell Configuration
+# 
+# You can define commands that require the --sheathJustify parameter to execute.
+# 
+# Two ways to define restrictions:
+# 1. Bare Command: Require justification for ANY usage of the command.
+#    Example: "- rm"
+#
+# 2. Conditional Command: Require justification ONLY if specific arguments are passed.
+#    Example: "- sudo fdesetup disable" (Allows "sudo apt update" but blocks the disable command)
+
+llm:
+  enabled: false
+  # provider: "anthropic" # openai, anthropic, google
+  # model: "claude-haiku-4-5"
+  # token: ""
+
+commands:
+  # Destructive file operations
+  - rm
+  - mv
+  - wipe
+  - shred
+  - truncate
+
+  # Permissions and Ownership
+  - chmod
+  - chown
+  - chgrp
+  - su
+
+  # Disk and Volume Modifying
+  - dd
+  - mkfs
+  - fdisk
+  - mkswap
+
+  # Process Management 
+  - kill
+  - killall
+  - pkill
+
+  # Harmful specific parameter combinations (Conditional Rules)
+  - "nvram -c"
+  - "fdesetup disable"
+  - "sudo fdesetup disable"
+  - "sudo nvram -c"
+
+  # Container Orchestration
+  - "kubectl delete"
